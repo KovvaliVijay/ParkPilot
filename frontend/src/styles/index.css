@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import "tailwindcss";
+
+/*
+ * Tailwind v4 theme configuration — exact design tokens from
+ * react-rebuild-spec.md §3.1, expressed as @theme.
+ */
+@theme {
+  /* Colors mapped to CSS variables set by dark/light class toggle */
+  --color-bg: var(--theme-bg);
+  --color-panel: var(--theme-panel);
+  --color-panel2: var(--theme-panel2);
+  --color-line: var(--theme-line);
+  --color-ink: var(--theme-text);
+  --color-muted: var(--theme-muted);
+  --color-cyan: #5ee7ff;
+  --color-green: #58e391;
+  --color-yellow: #ffd166;
+  --color-red: #ff647c;
+
+  /* Fonts */
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+
+  /* Easing */
+  --ease-premium: cubic-bezier(.16, 1, .3, 1);
+
+  /* Keyframes */
+  --animate-ping2: ping2 1.8s cubic-bezier(.16, 1, .3, 1) infinite;
+  --animate-sheen: sheen 3.2s ease-in-out infinite;
+  --animate-idle-glow: idleGlow 2.6s ease-in-out infinite;
+  --animate-free-breathe: freeBreathe 2.4s ease-in-out infinite;
+  --animate-headlight: headlight 1.6s ease-in-out infinite;
+  --animate-idle-bob: idleBob 2.8s ease-in-out infinite alternate;
+  --animate-float-idle: floatIdle 4.5s ease-in-out infinite alternate;
+  --animate-tight-pulse: tightPulse 2s ease-in-out infinite;
+
+  /* Neon Overhaul additions */
+  --animate-blob-float: blobFloat 20s ease-in-out infinite alternate;
+  --animate-blob-float-reverse: blobFloatReverse 25s ease-in-out infinite alternate;
+  --animate-streak: streak 2.5s linear infinite;
+  --animate-pulse-ring: pulseRing 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  --animate-scroll-dash: scrollDash 2s linear infinite;
+  --animate-glow-sweep: glowSweep 1.5s ease-in-out;
+}
+
+@keyframes blobFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(15%, 10%) scale(1.1); }
+  66% { transform: translate(-10%, 20%) scale(0.9); }
+  100% { transform: translate(-5%, -10%) scale(1.05); }
+}
+
+@keyframes blobFloatReverse {
+  0% { transform: translate(0, 0) scale(1.1); }
+  33% { transform: translate(-15%, -20%) scale(0.95); }
+  66% { transform: translate(10%, 15%) scale(1.05); }
+  100% { transform: translate(5%, 10%) scale(1); }
+}
+
+@keyframes streak {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(200%) skewX(-15deg); }
+}
+
+@keyframes pulseRing {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
+
+@keyframes scrollDash {
+  to { background-position: 0 40px; }
+}
+
+@keyframes glowSweep {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes ping2 {
+  0% { transform: scale(.6); opacity: .8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes sheen {
+  0%, 60% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+@keyframes idleGlow {
+  0%, 100% { box-shadow: 0 10px 30px rgba(94, 231, 255, .15); }
+  50% { box-shadow: 0 10px 40px rgba(94, 231, 255, .35); }
+}
+
+@keyframes freeBreathe {
+  0%, 100% { box-shadow: inset 0 0 0 1px rgba(53, 216, 121, .16), 0 0 8px rgba(53, 216, 121, .10); }
+  50% { box-shadow: inset 0 0 0 1px rgba(53, 216, 121, .35), 0 0 22px rgba(53, 216, 121, .22); }
+}
+
+@keyframes headlight {
+  0%, 100% { box-shadow: 0 0 4px 1px rgba(191, 247, 255, .5); }
+  50% { box-shadow: 0 0 9px 3px rgba(191, 247, 255, .9); }
+}
+
+@keyframes idleBob {
+  from { transform: translateY(1px); }
+  to { transform: translateY(-1.5px); }
+}
+
+@keyframes floatIdle {
+  from { transform: translateY(0); }
+  to { transform: translateY(-5px); }
+}
+
+@keyframes tightPulse {
+  0%, 100% { border-color: var(--theme-line); }
+  50% { border-color: #ff647c; box-shadow: 0 0 16px rgba(255, 100, 124, .25); }
+}
+
+@keyframes rippleAnim {
+  to { transform: scale(18); opacity: 0; }
+}
+
+/* ============================================================
+   Theme variables (both modes; .dark class toggles which wins)
+   — react-rebuild-spec.md §3.2
+   ============================================================ */
+:root {
+  --theme-bg: #f3f7fb;
+  --theme-panel: #ffffff;
+  --theme-panel2: #eef4fa;
+  --theme-line: #d4deea;
+  --theme-text: #152033;
+  --theme-muted: #536176;
+}
+
+.dark {
+  --theme-bg: #070b12;
+  --theme-panel: #101722;
+  --theme-panel2: #151e2c;
+  --theme-line: #283548;
+  --theme-text: #f5f7fb;
+  --theme-muted: #aeb9c9;
+}
+
+body {
+  background: var(--theme-bg);
+  color: var(--theme-text);
+  transition: background-color .4s cubic-bezier(.16, 1, .3, 1),
+              color .4s cubic-bezier(.16, 1, .3, 1);
+}
+
+/* ============================================================
+   Accessibility: respect reduced motion globally
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+  }
+}
+
+/* ============================================================
+   Global Ambient Classes (Neon Overhaul)
+   ============================================================ */
+.scanlines {
+  background-image: linear-gradient(
+    0deg,
+    transparent 24%,
+    var(--theme-line) 25%,
+    var(--theme-line) 26%,
+    transparent 27%,
+    transparent 74%,
+    var(--theme-line) 75%,
+    var(--theme-line) 76%,
+    transparent 77%,
+    transparent
+  );
+  background-size: 50px 50px;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+.dark .scanlines {
+  opacity: 0.05;
+}
+
+/* ============================================================
+   Map Tiles Dark Mode Hack
+   ============================================================ */
+.dark .leaflet-tile-pane {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+/* ============================================================
+   Custom range slider styling
+   ============================================================ */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--theme-line);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #5ee7ff;
+  cursor: pointer;
+  border: 2px solid var(--theme-panel);
+  box-shadow: 0 0 8px rgba(94, 231, 255, .4);
+  transition: box-shadow .2s cubic-bezier(.16, 1, .3, 1);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 16px rgba(94, 231, 255, .6);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #5ee7ff;
+  cursor: pointer;
+  border: 2px solid var(--theme-panel);
+  box-shadow: 0 0 8px rgba(94, 231, 255, .4);
+}
+
+/* ============================================================
+   Leaflet container
+   ============================================================ */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+
+/* ============================================================
+   Scrollbar styling for dark mode
+   ============================================================ */
+.dark ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--theme-panel);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--theme-line);
+  border-radius: 3px;
+}
